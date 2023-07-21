@@ -12,6 +12,11 @@ const moviesAddSchema = Joi.object({
     releaseDate: Joi.string().pattern(releaseDateRegexp).required(),
 })
 
+const movieUpdateFavoriteSchema = Joi.object({
+    favorite: Joi.boolean().required()
+})
+
 export default {
     moviesAddSchema,
+    movieUpdateFavoriteSchema,
 }

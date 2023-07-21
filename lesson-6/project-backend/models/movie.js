@@ -2,7 +2,7 @@ import {Schema, model} from "mongoose";
 
 import { genreList, releaseDateRegexp } from "../constants/movie-constants.js";
 
-import {handleSaveError} from "./hooks.js";
+import {handleSaveError, validateAtUpdate} from "./hooks.js";
 
 const movieSchema = new Schema({
     title: {
@@ -29,7 +29,10 @@ const movieSchema = new Schema({
     }
 }, {versionKey: false, timestamps: true});
 
+movieSchema.pre("findOneAndUpdate", validateAtUpdate);
+
 movieSchema.post("save", handleSaveError);
+movieSchema.post("findOneAndUpdate", handleSaveError);
 
 const Movie = model("movie", movieSchema);
 // category => categories
